@@ -15,7 +15,7 @@ conda create -y --name $conda_env_name python=3.8.5
 echo ""
 echo ""
 echo "****************** Activating conda environment ${conda_env_name} ******************"
-conda activate $conda_env_name
+activate $conda_env_name
 
 echo ""
 echo ""
@@ -85,15 +85,15 @@ echo ""
 echo ""
 echo "****************** Downloading PWCNet model ******************"
 
-gdown https://drive.google.com/uc\?id\=1s11Ud1UMipk2AbZZAypLPRpnXOS9Y1KO -O pretrained_networks/pwcnet-network-default.pth
+#gdown https://drive.google.com/uc\?id\=1s11Ud1UMipk2AbZZAypLPRpnXOS9Y1KO -O pretrained_networks/pwcnet-network-default.pth
 
 echo ""
 echo "****************** Downloading DBSR synthetic model ******************"
-gdown https://drive.google.com/uc\?id\=1bdtz_gr_m9MnypVqDigH6H1xoae82lwY -O pretrained_networks/dbsr_synthetic_default.pth
+#gdown https://drive.google.com/uc\?id\=1bdtz_gr_m9MnypVqDigH6H1xoae82lwY -O pretrained_networks/dbsr_synthetic_default.pth
 
 echo ""
 echo "****************** Downloading DBSR burstsr model ******************"
-gdown https://drive.google.com/uc\?id\=1GyfJzqBx9st9Qdvy2fRizWvxCbNOerFe -O pretrained_networks/dbsr_burstsr_default.pth
+#gdown https://drive.google.com/uc\?id\=1GyfJzqBx9st9Qdvy2fRizWvxCbNOerFe -O pretrained_networks/dbsr_burstsr_default.pth
 
 echo ""
 echo ""

@@ -3,4 +3,6 @@ Implementation of [Deep Burst Super-Resolution](https://arxiv.org/pdf/2101.10997
 
 This implementation is for study only, designed as an assignment for Image Processing discipline at UFPE - Masters on Computer Science 2022.2.
 
+Original code downloaded from [Deep-Burst-SR repository](https://github.com/goutamgmb/deep-burst-sr).
+
 Student: Eduardo Barreto Brito
