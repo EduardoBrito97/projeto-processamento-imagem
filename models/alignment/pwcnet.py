@@ -3,10 +3,7 @@ import torch
 import math
 import sys
 
-try:
-    from external.pwcnet.correlation import correlation # the custom cost volume layer
-except:
-    sys.path.insert(0, './correlation'); import correlation # you should consider upgrading python
+from external.pwcnet.correlation import correlation # the custom cost volume layer
 
 
 backwarp_tenGrid = {}

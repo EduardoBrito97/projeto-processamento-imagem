@@ -2,16 +2,6 @@ echo on
 
 echo ""
 echo ""
-echo "****************** Activating conda environment ${conda_env_name} ******************"
-activate env-dbsr
-
-echo ""
-echo ""
-echo "****************** Installing pytorch with cuda10.2 ******************"
-conda install -y pytorch torchvision cudatoolkit=10.2 -c pytorch
-
-echo ""
-echo ""
 echo "****************** Installing matplotlib ******************"
 conda install -y matplotlib
 
@@ -26,7 +16,6 @@ pip install exifread
 echo ""
 echo ""
 echo "****************** Installing cupy (dependency for pwcnet) ******************"
-
 conda install -y -c conda-forge cupy=7.8.0
 
 echo ""
