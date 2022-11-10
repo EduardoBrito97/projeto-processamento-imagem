@@ -28,11 +28,11 @@ def run(settings):
     settings.description = 'Default settings for fine-tuning a DBSR model on BurstSR dataset'
     settings.batch_size = 12
     crop_sz = 56
-    settings.num_workers = 8
+    settings.num_workers = 4
     settings.multi_gpu = False
     settings.print_interval = 1
 
-    settings.burst_sz = 8
+    settings.burst_sz = 4
 
     data_processing_train = processing.BurstSRProcessing(transform=None, random_flip=True,
                                                          substract_black_level=True,
