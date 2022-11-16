@@ -133,3 +133,4 @@ dmypy.json
 /databases/zurich/*
 
 /networks/tensorboard/*
+/networks/checkpoints/*

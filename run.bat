@@ -1,0 +1,1 @@
+python run_training.py dbsr default_synthetic --backbone resnet18
