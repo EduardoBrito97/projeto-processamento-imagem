@@ -13,7 +13,7 @@ if env_path not in sys.path:
 import admin.settings as ws_settings
 
 
-def run_training(train_module, train_name, cudnn_benchmark=True):
+def run_training(train_module, train_name, cudnn_benchmark=True, backbone='None'):
     """Run a train scripts in train_settings.
     args:
         train_module: Name of module in the "train_settings/" folder.
@@ -27,11 +27,14 @@ def run_training(train_module, train_name, cudnn_benchmark=True):
     torch.backends.cudnn.benchmark = cudnn_benchmark
 
     print('Training:  {}  {}'.format(train_module, train_name))
+    if backbone != 'None' and backbone != '':
+        print("Backbone:", backbone)
 
     settings = ws_settings.Settings()
     settings.module_name = train_module
     settings.script_name = train_name
     settings.project_path = '{}/{}'.format(train_module, train_name)
+    settings.backboneToUse = backbone
 
     expr_module = importlib.import_module('train_settings.{}.{}'.format(train_module, train_name))
     expr_func = getattr(expr_module, 'run')
@@ -44,10 +47,11 @@ def main():
     parser.add_argument('train_module', type=str, help='Name of module in the "train_settings/" folder.')
     parser.add_argument('train_name', type=str, help='Name of the train settings file.')
     parser.add_argument('--cudnn_benchmark', type=bool, default=True, help='Set cudnn benchmark on (1) or off (0) (default is on).')
+    parser.add_argument('--backbone', type=str, default="None", help='Which backbone to use in the merging layer. Default is none. Available: ')
 
     args = parser.parse_args()
 
-    run_training(args.train_module, args.train_name, args.cudnn_benchmark)
+    run_training(args.train_module, args.train_name, args.cudnn_benchmark, args.backbone)
 
 
 if __name__ == '__main__':

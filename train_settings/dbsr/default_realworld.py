@@ -26,9 +26,9 @@ from admin.environment import env_settings
 
 def run(settings):
     settings.description = 'Default settings for fine-tuning a DBSR model on BurstSR dataset'
-    settings.batch_size = 12
+    settings.batch_size = 4
     crop_sz = 56
-    settings.num_workers = 4
+    settings.num_workers = 2
     settings.multi_gpu = False
     settings.print_interval = 1
 
@@ -41,7 +41,7 @@ def run(settings):
 
     # Train sampler and loader
     dataset_train = sampler.RandomBurst([burstsr_train], [1], burst_size=settings.burst_sz,
-                                        samples_per_epoch=settings.batch_size * 1000, processing=data_processing_train)
+                                        samples_per_epoch=settings.batch_size * 100, processing=data_processing_train)
 
     loader_train = DataLoader('train', dataset_train, training=True, num_workers=settings.num_workers,
                               stack_dim=0, batch_size=settings.batch_size)

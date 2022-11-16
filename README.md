@@ -19,8 +19,8 @@ To run locally on windows (you must have GPU available):
 - Execute 'install.bat'
 
 To run the training, execute one of those:
-- python run_training.py dbsr default_realworld
-- python run_training.py dbsr default_synthetic
+- python run_training.py dbsr default_realworld --backbone resnet18
+- python run_training.py dbsr default_synthetic --backbone resnet18
 
 To reset your GPU on Windows, on Powershell:
 - Get-PnpDevice -FriendlyName "NVIDIA GeForce GTX 960M" | Disable-PnpDevice

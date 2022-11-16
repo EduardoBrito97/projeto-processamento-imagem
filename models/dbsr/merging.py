@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import torchvision
 import torch
 import torch.nn as nn
 import models.layers.blocks as blocks
@@ -23,7 +24,7 @@ class WeightedSum(nn.Module):
     def __init__(self, input_dim, project_dim, offset_feat_dim,
                  num_offset_feat_extractor_res=1, num_weight_predictor_res=1, use_offset=True, offset_modulo=None,
                  ref_offset_noise=0.0, softmax=True, use_base_frame=False,
-                 use_bn=False, activation='relu',):
+                 use_bn=False, activation='relu', backboneToUse='none'):
         super().__init__()
         self.use_offset = use_offset
         self.offset_modulo = offset_modulo
@@ -55,6 +56,22 @@ class WeightedSum(nn.Module):
         weight_predictor.append(blocks.conv_block(2 * project_dim, input_dim, 3, stride=1, padding=1,
                                                   batch_norm=use_bn,
                                                   activation='none'))
+
+        if backboneToUse == 'None':
+            backboneToUse = 'No backbone used'
+        elif backboneToUse == 'resnet18':
+            weight_predictor.append(torchvision.models.resnet18(pretrained=True).relu)
+        elif backboneToUse == 'resnet34':
+            weight_predictor.append(torchvision.models.resnet34(pretrained=True).relu)
+        elif backboneToUse == 'resnet50':
+            weight_predictor.append(torchvision.models.resnet50(pretrained=True).relu)
+        elif backboneToUse == 'resnet101':
+            weight_predictor.append(torchvision.models.resnet101(pretrained=True).relu)
+        elif backboneToUse == 'resnet152':
+            weight_predictor.append(torchvision.models.resnet101(pretrained=True).relu)
+        else:
+            backboneToUse = 'Non supported'
+        print("Backbone: ", backboneToUse)
 
         self.weight_predictor = nn.Sequential(*weight_predictor)
 

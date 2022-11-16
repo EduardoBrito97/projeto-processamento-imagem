@@ -54,6 +54,7 @@ def dbsrnet_cvpr2021(enc_init_dim, enc_num_res_blocks, enc_out_dim,
                      icnrinit=False,
                      gauss_blur_sd=None,
                      gauss_ksz=3,
+                     backboneToUse = 'None'
                      ):
     # backbone
     alignment_net = PWCNet(load_pretrained=True,
@@ -70,7 +71,8 @@ def dbsrnet_cvpr2021(enc_init_dim, enc_num_res_blocks, enc_out_dim,
                                        offset_modulo=offset_modulo,
                                        use_offset=use_offset,
                                        ref_offset_noise=ref_offset_noise,
-                                       softmax=softmax, use_base_frame=use_base_frame)
+                                       softmax=softmax, use_base_frame=use_base_frame,
+                                       backboneToUse=backboneToUse)
 
     decoder = dbsr_decoders.ResPixShuffleConv(enc_out_dim, dec_init_conv_dim, dec_num_pre_res_blocks,
                                               dec_post_conv_dim, dec_num_post_res_blocks,

@@ -25,12 +25,12 @@ from models.loss.image_quality_v2 import PSNR, PixelWiseError
 
 def run(settings):
     settings.description = 'Default settings for training DBSR models on synthetic burst dataset '
-    settings.batch_size = 16
+    settings.batch_size = 4
     settings.num_workers = 2
     settings.multi_gpu = False
     settings.print_interval = 1
 
-    settings.crop_sz = (384, 384)
+    settings.crop_sz = (256, 256)
     settings.burst_sz = 2
     settings.downsample_factor = 2
 
@@ -61,7 +61,7 @@ def run(settings):
 
     # Train sampler and loader
     dataset_train = sampler.RandomImage([zurich_raw2rgb_train], [1],
-                                        samples_per_epoch=settings.batch_size * 1000, processing=data_processing_train)
+                                        samples_per_epoch=settings.batch_size * 100, processing=data_processing_train)
     dataset_val = sampler.RandomImage([zurich_raw2rgb_val], [1],
                                       samples_per_epoch=settings.batch_size * 200, processing=data_processing_val)
 
@@ -70,6 +70,7 @@ def run(settings):
     loader_val = DataLoader('val', dataset_val, training=False, num_workers=settings.num_workers,
                             stack_dim=0, batch_size=settings.batch_size, epoch_interval=5)
 
+    backboneToUse = settings.backboneToUse
     net = dbsr_nets.dbsrnet_cvpr2021(enc_init_dim=64, enc_num_res_blocks=9, enc_out_dim=512,
                                      dec_init_conv_dim=64, dec_num_pre_res_blocks=5,
                                      dec_post_conv_dim=32, dec_num_post_res_blocks=4,
@@ -78,8 +79,8 @@ def run(settings):
                                      weight_pred_proj_dim=64,
                                      num_weight_predictor_res=3,
                                      gauss_blur_sd=1.0,
-                                     icnrinit=True
-                                     )
+                                     icnrinit=True,
+                                     backboneToUse=backboneToUse)
 
     # Wrap the network for multi GPU training
     if settings.multi_gpu:
