@@ -57,7 +57,7 @@ def match_colors(im_ref, im_q, im_test, ksz, gauss_kernel):
     valid = F.pad(valid, pad)
 
     upsample_factor = im_test.shape[-1] / valid.shape[-1]
-    valid = F.interpolate(valid.unsqueeze(1).float(), scale_factor=upsample_factor, mode='bilinear')
+    valid = F.interpolate(valid.unsqueeze(1).float(), scale_factor=upsample_factor, mode='bilinear', align_corners=True)
     valid = valid > 0.9
 
     # Apply the transformation to test image
@@ -96,11 +96,11 @@ class SpatialColorAlignment(nn.Module):
         # the input and the ground truth
         sr_factor = self.sr_factor
         ds_factor = 1.0 / float(2.0 * sr_factor)
-        flow_ds = F.interpolate(flow, scale_factor=ds_factor, mode='bilinear') * ds_factor
+        flow_ds = F.interpolate(flow, scale_factor=ds_factor, mode='bilinear', align_corners=True) * ds_factor
 
         burst_0 = burst_input[:, 0, [0, 1, 3]].contiguous()
         burst_0_warped = lispr_warp.warp(burst_0, flow_ds)
-        frame_gt_ds = F.interpolate(gt, scale_factor=ds_factor, mode='bilinear')
+        frame_gt_ds = F.interpolate(gt, scale_factor=ds_factor, mode='bilinear', align_corners=True)
 
         # Match the colorspace between the prediction and ground truth
         pred_warped_m, valid = match_colors(frame_gt_ds, burst_0_warped, pred_warped, self.ksz, self.gauss_kernel)

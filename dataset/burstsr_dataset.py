@@ -224,7 +224,7 @@ class CanonImage:
 
     def resize(self, size=None, scale_factor=None):
         self.im_raw = F.interpolate(self.im_raw.unsqueeze(0), size=size, scale_factor=scale_factor,
-                                    mode='bilinear').squeeze(0)
+                                    mode='bilinear', align_corners=True).squeeze(0)
 
     def postprocess(self, return_np=True):
         raise NotImplementedError

@@ -27,8 +27,6 @@ def run_training(train_module, train_name, cudnn_benchmark=True, backbone='None'
     torch.backends.cudnn.benchmark = cudnn_benchmark
 
     print('Training:  {}  {}'.format(train_module, train_name))
-    if backbone != 'None' and backbone != '':
-        print("Backbone:", backbone)
 
     settings = ws_settings.Settings()
     settings.module_name = train_module

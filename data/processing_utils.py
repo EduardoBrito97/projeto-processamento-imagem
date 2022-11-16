@@ -63,7 +63,7 @@ def random_resized_crop(frames, crop_sz, scale_range=None, ar_range=None):
     frames_crop = frames[:, r1:r2, c1:c2]
 
     # Resize to crop_sz
-    frames_crop_resized = F.interpolate(frames_crop.unsqueeze(0), size=crop_sz.int().tolist(), mode='bilinear').squeeze(0)
+    frames_crop_resized = F.interpolate(frames_crop.unsqueeze(0), size=crop_sz.int().tolist(), mode='bilinear', align_corners=True).squeeze(0)
     return frames_crop_resized
 
 

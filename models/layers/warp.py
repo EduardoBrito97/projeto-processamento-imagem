@@ -42,6 +42,6 @@ def warp(feat, flow, mode='bilinear', padding_mode='zeros'):
 
     grid_norm = grid_norm.permute(0, 2, 3, 1)
 
-    output = F.grid_sample(feat, grid_norm, mode=mode, padding_mode=padding_mode)
+    output = F.grid_sample(feat, grid_norm, mode=mode, padding_mode=padding_mode, align_corners=True)
 
     return output

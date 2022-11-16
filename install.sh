@@ -41,6 +41,7 @@ echo ""
 echo "****************** Installing tensorboard ******************"
 
 pip install tb-nightly
+pip install tensorboardX
 
 echo ""
 echo ""
