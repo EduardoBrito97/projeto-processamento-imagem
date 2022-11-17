@@ -28,11 +28,11 @@ def run(settings):
     settings.batch_size = 4
     settings.num_workers = 2
     settings.multi_gpu = False
-    settings.print_interval = 1
+    settings.print_interval = 10
 
-    settings.crop_sz = (256, 256)
+    settings.crop_sz = (384, 384)
     settings.burst_sz = 2
-    settings.downsample_factor = 2
+    settings.downsample_factor = 4
 
     settings.burst_transformation_params = {'max_translation': 24.0,
                                             'max_rotation': 1.0,
@@ -41,6 +41,7 @@ def run(settings):
                                             'border_crop': 24}
     settings.burst_reference_aligned = True
     settings.image_processing_params = {'random_ccm': True, 'random_gains': True, 'smoothstep': True, 'gamma': True, 'add_noise': True}
+    backboneToUse = settings.backboneToUse
 
     zurich_raw2rgb_train = datasets.ZurichRAW2RGB(split='train')
     zurich_raw2rgb_val = datasets.ZurichRAW2RGB(split='test')
@@ -60,17 +61,19 @@ def run(settings):
                                                               image_processing_params=settings.image_processing_params)
 
     # Train sampler and loader
+    numOfBatchesTrain = 1000
+    numOfBatchesVal = 200
+
     dataset_train = sampler.RandomImage([zurich_raw2rgb_train], [1],
-                                        samples_per_epoch=settings.batch_size * 100, processing=data_processing_train)
+                                        samples_per_epoch=settings.batch_size * numOfBatchesTrain, processing=data_processing_train)
     dataset_val = sampler.RandomImage([zurich_raw2rgb_val], [1],
-                                      samples_per_epoch=settings.batch_size * 200, processing=data_processing_val)
+                                      samples_per_epoch=settings.batch_size * numOfBatchesVal, processing=data_processing_val)
 
     loader_train = DataLoader('train', dataset_train, training=True, num_workers=settings.num_workers,
                               stack_dim=0, batch_size=settings.batch_size)
     loader_val = DataLoader('val', dataset_val, training=False, num_workers=settings.num_workers,
                             stack_dim=0, batch_size=settings.batch_size, epoch_interval=5)
 
-    backboneToUse = settings.backboneToUse
     net = dbsr_nets.dbsrnet_cvpr2021(enc_init_dim=64, enc_num_res_blocks=9, enc_out_dim=512,
                                      dec_init_conv_dim=64, dec_num_pre_res_blocks=5,
                                      dec_post_conv_dim=32, dec_num_post_res_blocks=4,
@@ -98,4 +101,6 @@ def run(settings):
     lr_scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=40, gamma=0.2)
     trainer = SimpleTrainer(actor, [loader_train, loader_val], optimizer, settings, lr_scheduler)
 
-    trainer.train(100, load_latest=True, fail_safe=True)
+    # Starting the training
+    numOfTrains = 100
+    trainer.train(numOfTrains, load_latest=True, fail_safe=True)

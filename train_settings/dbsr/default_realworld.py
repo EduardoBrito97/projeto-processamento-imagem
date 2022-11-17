@@ -30,9 +30,9 @@ def run(settings):
     crop_sz = 56
     settings.num_workers = 2
     settings.multi_gpu = False
-    settings.print_interval = 1
+    settings.print_interval = 10
 
-    settings.burst_sz = 4
+    settings.burst_sz = 2
 
     data_processing_train = processing.BurstSRProcessing(transform=None, random_flip=True,
                                                          substract_black_level=True,
@@ -40,8 +40,9 @@ def run(settings):
     burstsr_train = datasets.BurstSRDataset(split='train')
 
     # Train sampler and loader
+    numOfBatchesTrain = 100
     dataset_train = sampler.RandomBurst([burstsr_train], [1], burst_size=settings.burst_sz,
-                                        samples_per_epoch=settings.batch_size * 100, processing=data_processing_train)
+                                        samples_per_epoch=settings.batch_size * numOfBatchesTrain, processing=data_processing_train)
 
     loader_train = DataLoader('train', dataset_train, training=True, num_workers=settings.num_workers,
                               stack_dim=0, batch_size=settings.batch_size)
@@ -81,4 +82,5 @@ def run(settings):
     lr_scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=15, gamma=0.2)
     trainer = SimpleTrainer(actor, [loader_train, loader_val], optimizer, settings, lr_scheduler)
 
-    trainer.train(40, load_latest=True, fail_safe=True)
+    numOfTrains = 40
+    trainer.train(numOfTrains, load_latest=True, fail_safe=True)

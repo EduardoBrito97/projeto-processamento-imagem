@@ -19,6 +19,7 @@ To run locally on windows (you must have GPU available):
 - Execute 'install.bat'
 
 To run the training, execute one of those:
+- You need to have a copy of the ZurichRawToRgb 'train' folder named as 'test'
 - python run_training.py dbsr default_realworld --backbone resnet18
 - python run_training.py dbsr default_synthetic --backbone resnet18
 
