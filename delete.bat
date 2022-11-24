@@ -2,3 +2,7 @@ del "C:\Users\Eduardo Barreto\Desktop\Mestrado\Processamento de Imagem\projeto-p
 del "C:\Users\Eduardo Barreto\Desktop\Mestrado\Processamento de Imagem\projeto-processamento-imagem\networks\tensorboard\dbsr\default_synthetic\info"
 del "C:\Users\Eduardo Barreto\Desktop\Mestrado\Processamento de Imagem\projeto-processamento-imagem\networks\tensorboard\dbsr\default_synthetic\train"
 del "C:\Users\Eduardo Barreto\Desktop\Mestrado\Processamento de Imagem\projeto-processamento-imagem\networks\tensorboard\dbsr\default_synthetic\val"
+del "C:\Users\Eduardo Barreto\Desktop\Mestrado\Processamento de Imagem\projeto-processamento-imagem\networks\checkpoints\dbsr\default_realworld"
+del "C:\Users\Eduardo Barreto\Desktop\Mestrado\Processamento de Imagem\projeto-processamento-imagem\networks\tensorboard\dbsr\default_realworld\info"
+del "C:\Users\Eduardo Barreto\Desktop\Mestrado\Processamento de Imagem\projeto-processamento-imagem\networks\tensorboard\dbsr\default_realworld\train"
+del "C:\Users\Eduardo Barreto\Desktop\Mestrado\Processamento de Imagem\projeto-processamento-imagem\networks\tensorboard\dbsr\default_realworld\val"

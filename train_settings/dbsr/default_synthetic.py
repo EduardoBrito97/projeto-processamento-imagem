@@ -61,7 +61,7 @@ def run(settings):
                                                               image_processing_params=settings.image_processing_params)
 
     # Train sampler and loader
-    numOfBatchesTrain = 1000
+    numOfBatchesTrain = 400
     numOfBatchesVal = 200
 
     dataset_train = sampler.RandomImage([zurich_raw2rgb_train], [1],
@@ -102,5 +102,5 @@ def run(settings):
     trainer = SimpleTrainer(actor, [loader_train, loader_val], optimizer, settings, lr_scheduler)
 
     # Starting the training
-    numOfTrains = 100
+    numOfTrains = 40
     trainer.train(numOfTrains, load_latest=True, fail_safe=True)

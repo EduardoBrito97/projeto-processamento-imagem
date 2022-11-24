@@ -1,1 +1,1 @@
-python run_training.py dbsr default_synthetic --backbone resnet18
+python run_training.py dbsr default_synthetic --backbone resnet34

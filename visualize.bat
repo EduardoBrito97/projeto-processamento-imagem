@@ -1,0 +1,1 @@
+python util_scripts/visualize_synburst_val.py srgb
