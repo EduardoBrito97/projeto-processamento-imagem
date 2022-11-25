@@ -137,3 +137,4 @@ dmypy.json
 pretrained_networks/20.pth
 pretrained_networks/30.pth
 pretrained_networks/40.pth
+evaluation/burstsr/results/burstsr/*
